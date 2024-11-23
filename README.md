@@ -57,6 +57,6 @@ The project is structured with a master page (`site.master`) for consistent layo
 
 **References:**
 
-1. [Home Page (bsite.net)](Insert Live Site URL Here if available) 
-2. [Online Book Inventory System - Figma](Insert Figma Design URL Here if available)
-3. How to Upload Your Asp.Net Project For Free At FreeAspHosting | Tutorial4You ([https://www.youtube.com/watch?v=](Insert YouTube tutorial URL here - remove the example video ID if not applicable))
+1. The website linke: [Home Page (bsite.net)](https://abubakralsheikh.bsite.net/) 
+2. [Online Book Inventory System - Figma](https://www.figma.com/file/5IXMWyanmnBxRyuHpdCLds/Online-Book-Inventory-System?type=design&node-id=0-1&mode=design&t=xd56drJbEn6ViNyb-0)
+3. How to Upload Your Asp.Net Project For Free At [FreeAspHosting | Tutorial4You](https://www.youtube.com/watch?v=R75QbUD5XLI)
