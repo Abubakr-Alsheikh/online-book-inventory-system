@@ -1,0 +1,139 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Online_Book_Inventory_System.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/Logo.png" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-secondary text-white bg-opacity-10 pe-4 rounded-pill p-0 mt-4 shadow ">
+                <a class="navbar-brand p-0" href="#">
+                    <img src="/Logo.png" alt="Logo" width="76" height="76" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" runat="server" href='<%# RedirectManager.PagesURL.HomeURL %>'>Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href='<%# RedirectManager.PagesURL.ReadingListURL %>'>Reading List</a>
+                        </li>
+                        <% if (SessionManager.IsUserAdmin)
+                            { %>
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href='<%# RedirectManager.PagesURL.AdminURL %>'>Admin</a>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <div class="search-holder w-50 btn-group justify-content-center align-items-center rounder-pill" role="search">
+
+                        <div class="position-absolute text-primary top-50 translate-middle-y " style="left: 1rem">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </div>
+                        <asp:TextBox ID="searchBar" runat="server" class="form-control mw-100 rounded-pill ps-5 border-primary" placeholder="Search for books..."></asp:TextBox>
+                        <div id="searchResults" class="position-absolute"></div>
+
+                        <%  if (!(SessionManager.IsUserLoggedIn))
+                            {%>
+                        <div class="me-2 ms-4">
+                            <a class="btn border-primary rounded-pill px-4 text-primary bg-white w-100 d-inline-block py-2" runat="server" href='<%# RedirectManager.PagesURL.SignupURL %>'>Signup</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary rounded-pill px-4 w-100 d-inline-block py-2" runat="server" href='<%# RedirectManager.PagesURL.LoginURL %>'>Login</a>
+                        </div>
+                        <% }
+                            else
+                            { %>
+                        <div class="ms-4">
+                            <asp:LinkButton runat="server" OnClick="LogoutLinkButton_Click" class="btn btn-primary rounded-pill px-4 w-100">Logout</asp:LinkButton>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Abubakr Alsheikh</p>
+            </footer>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#searchBar').on('input', function () {
+                $('#searchResults').css("top", $('#searchBar').position().top + $('#searchBar').outerHeight());
+                $('#searchResults').css("left", $('#searchBar').position().left);
+                $('#searchResults').css("width", $('#searchBar').width() + 56);
+                var searchKeyword = $(this).val();
+                $.post('/SearchResults.aspx?keywords=' + searchKeyword)
+                    .done(function (data) {
+                        console.log(data);
+                        $('#searchResults').empty();
+                        $(data).find('Book').each(function () {
+                            var id = $(this).find('Id').text();
+                            var title = $(this).find('Title').text();
+                            var details = $(this).find('Details').text();
+                            var image = $(this).find('Image').text();
+                            var body = `<div class="card w-100" style="z-index:1000">
+                                            <a href="/BookDetails?BookID=${id}" class="d-flex flex-row p-1 text-decoration-none">
+                                                <img width="76" src="${image.substring(1)}">
+                                                <div class="card-body d-block w-100">
+                                                    <h5 class="card-title">${title}</h5>
+                                                    <p class="card-text">${details}</p>
+                                                </div>
+                                             </a>
+                                         </div>`;
+                            $('#searchResults').append(body);
+                        });
+                    });
+            });
+            $(document).on("click", function () {
+                $('#searchResults').empty();
+            })
+        });
+    </script>
+</body>
+</html>

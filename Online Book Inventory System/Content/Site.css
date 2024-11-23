@@ -1,0 +1,23 @@
+﻿@media(max-width:1250px){
+    /*default*/
+    .book-section {
+        justify-content: space-evenly !important;
+    }
+}
+@media(max-width:991px) {
+    /*site.master*/
+    .navbar {
+        border-radius: 1rem !important;
+        padding: 0.5rem !important;
+    }
+    .navbar .search-holder {
+        width: 100% !important;
+    }
+    /*Forms pages*/
+    .form {
+        width: 75% !important;
+    }
+    .form input[type="submit"] {
+        width:50% !important
+    }
+}

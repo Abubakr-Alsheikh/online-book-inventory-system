@@ -1,0 +1,2 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SearchResults.aspx.cs" Inherits="Online_Book_Inventory_System.SearchResults" %>
+<%--<%@ Page Title="Search" Language="C#"  AutoEventWireup="true" CodeBehind="SearchResualts.aspx.cs" Inherits="Online_Book_Inventory_System.SearchResualts" %>--%>
